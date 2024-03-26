@@ -1,0 +1,52 @@
+pipeline {
+    agent any // This specifies that the pipeline can run on any available agent
+
+    environment {
+        // Define environment variables that can be used in the pipeline
+        MY_ENV_VARIABLE = "value"
+    }
+
+    stages {
+        stage('Build') {
+            steps {
+                // Commands to build your application
+                echo 'Building..'
+                sh 'echo Build step'
+                // For example, for a Maven project, you might use: sh 'mvn clean package'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                // Commands to test your application
+                echo 'Testing..'
+                sh 'echo Test step'
+                // For example, for a Maven project, you might use: sh 'mvn test'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                // Commands to deploy your application
+                echo 'Deploying..'
+                sh 'echo Deploy step'
+                // For example, you might use a script to deploy to a server
+            }
+        }
+    }
+
+    post {
+        always {
+            // Steps to clean up and finalize the pipeline, executed after the stages
+            echo 'This will always run'
+        }
+        success {
+            // Steps to take if the pipeline is successful
+            echo 'Pipeline succeeded!'
+        }
+        failure {
+            // Steps to take if the pipeline fails
+            echo 'Pipeline failed!'
+        }
+    }
+}
